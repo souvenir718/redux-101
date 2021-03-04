@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import { createAction, createReducer } from '@reduxjs/toolkit';
+import { configureStore, createAction, createReducer } from '@reduxjs/toolkit';
 
 const addToDo = createAction('ADD');
 const deleteToDo = createAction('DELETE');
@@ -17,6 +17,8 @@ const deleteToDo = createAction('DELETE');
 // };
 
 // 리턴할때는 새로운 state여야 한다.
+// push는 mutate state
+// filter는 return new state
 const reducer = createReducer([], {
     [addToDo]: (state, action) => {
         state.push({ text: action.payload, id: Date.now() });
@@ -51,7 +53,9 @@ const reducer = createReducer([], {
 //     }
 // };
 
-const store = createStore(reducer);
+//redux dev tools
+const store = configureStore({ reducer });
+// const store = createStore(reducer);
 
 export const actionCreators = {
     addToDo,
